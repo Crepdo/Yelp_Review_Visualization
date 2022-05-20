@@ -11,9 +11,9 @@
     },
     {
       "label": "Install dependencies backend",
-      "type": "npm",
-      "script": "install",
-      "path": "backend/"
+      "type": "shell",
+      "command": "pip",
+      "args": ["install", "-r", "backend/requirements.txt"]
     },
     {
       "label": "Publish frontend",
@@ -23,9 +23,9 @@
     },
     {
       "label": "Publish backend",
-      "type": "npm",
-      "script": "publish",
-      "path": "backend/"
+      "type": "shell",
+      "command": "python",
+      "args": ["backend/scripts/publish.py"]
     },
     {
       "label": "Start frontend",
@@ -35,9 +35,8 @@
     },
     {
       "label": "Start backend",
-      "type": "npm",
-      "script": "start",
-      "path": "backend/"
+      "type": "shell",
+      "command": "cd backend; flask run -p 3001"
     },
     {
       "label": "Install dependencies",
