@@ -12,11 +12,11 @@ import TileLayer from "ol/layer/Tile";
 import OSM from "ol/source/OSM";
 import { fromLonLat } from "ol/proj";
 import "ol/ol.css";
-import Point from "ol/geom/Point";
+import Circle from 'ol/geom/Circle';
 import Feature from "ol/Feature";
 import { Vector as VectorLayer } from "ol/layer";
 import { Vector as VectorSource } from "ol/source";
-import { Style, Icon } from "ol/style"
+import { Style, Fill, Stroke, Text } from "ol/style";
 
 export default {
     name: "Map",
@@ -34,25 +34,35 @@ export default {
                 target: this.$refs['map'],
                 layers: [new TileLayer({ source: new OSM() })],
                 view: new View({
-                    zoom: 5,
-                    center: fromLonLat([120, 30]),
+                    zoom: 14,
+                    center: fromLonLat([-90.091533, 29.951065]),
                     constrainResolution: true
                 }),
             });
-            var viewProjection = map.getView().getProjection();
             var feature = new Feature({
-                geometry: new Point([120, 30.03]).transform('EPSG:4326', viewProjection),
-                name: "A mark"
+                geometry: new Circle([-90.091533, 29.951065], 0.002).transform('EPSG:4326', "EPSG:3857"),
+                name: "A mark",
             });
-            feature.setStyle([
-                new Style({
-                    image: new Icon({
-                        anchor: [0.5, 1],
-                        size: [32, 32],
-                        src: require("../assets/地图.svg")
-                    })
+            var style = new Style({
+            fill: new Fill({ //⽮量图层填充颜⾊，以及透明度
+                color: 'rgba(255, 0, 0, 0.6)'
+            }),
+            stroke: new Stroke({ //边界样式
+                color: '#319FD3',
+                width: 5
+            }),
+            text: new Text({ //⽂本样式
+                font: '12px Calibri,sans-serif',
+                fill: new Fill({
+                color: '#000'
+                }),
+                stroke: new Stroke({
+                color: '#fff',
+                width: 3
                 })
-            ]);
+            })
+            });
+            feature.setStyle([style]);
             var v_source = new VectorSource({
                 features: [feature]
             });
@@ -60,6 +70,15 @@ export default {
                 source: v_source
             });
             map.addLayer(vectorLayer);
+            map.on('click', function(evt) {
+                if (map.forEachFeatureAtPixel(evt.pixel,
+                    function(feat) {
+                        return feat === feature;
+                    })
+                ) {
+                    alert('click');
+                }
+            });
         },
     }
 };
