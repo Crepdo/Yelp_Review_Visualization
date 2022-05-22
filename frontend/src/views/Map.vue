@@ -16,11 +16,11 @@ import TileLayer from "ol/layer/Tile";
 import OSM from "ol/source/OSM";
 import { fromLonLat } from "ol/proj";
 import "ol/ol.css";
-import Circle from 'ol/geom/Circle';
+import Point from 'ol/geom/Point';
 import Feature from "ol/Feature";
 import { Vector as VectorLayer } from "ol/layer";
 import { Vector as VectorSource } from "ol/source";
-import { Style, Fill, Stroke, Text } from "ol/style";
+import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 import Overlay from 'ol/Overlay';
 import { toLonLat } from 'ol/proj';
 import { toStringHDMS } from 'ol/coordinate';
@@ -62,10 +62,18 @@ export default {
                 overlays: [overlay],
             });
             var feature = new Feature({
-                geometry: new Circle([-90.091533, 29.951065], 0.002).transform('EPSG:4326', "EPSG:3857"),
+                geometry: new Point([-90.091533, 29.951065]).transform('EPSG:4326', "EPSG:3857"),
                 name: "A mark",
+                'size': 20,
             });
             var style = new Style({
+                image: new CircleStyle({
+                    radius: 10,
+                    stroke: new Stroke({ //边界样式
+                        color: '#319FD3',
+                        width: 5
+                    }),
+                }),
                 fill: new Fill({ //⽮量图层填充颜⾊，以及透明度
                     color: 'rgba(255, 0, 0, 0.6)'
                 }),
@@ -73,16 +81,6 @@ export default {
                     color: '#319FD3',
                     width: 5
                 }),
-                text: new Text({ //⽂本样式
-                    font: '12px Calibri,sans-serif',
-                    fill: new Fill({
-                        color: '#000'
-                    }),
-                    stroke: new Stroke({
-                        color: '#fff',
-                        width: 3
-                    })
-                })
             });
             feature.setStyle([style]);
             var v_source = new VectorSource({
