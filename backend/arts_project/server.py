@@ -20,7 +20,6 @@ def get_grid():
 @app.route(ENDPOINT_GEO)
 def get_geo():
     geo_json = arts_project.GetGeoJson.get_geojson()
-    print(geo_json)
     return flask.jsonify(geo_json)
 
 
