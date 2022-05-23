@@ -20,7 +20,8 @@ def get_geojson():
                 'coordinates': [row['longitude'], row['latitude']]
                 },
             'properties': {
-                'name': row['name']
+                'name': row['name'],
+                'business_id': row['business_id'],
                 }
             }
         features.append(feature)

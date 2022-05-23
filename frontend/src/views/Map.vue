@@ -20,8 +20,8 @@ import { Vector as VectorLayer } from "ol/layer";
 import { Vector as VectorSource } from "ol/source";
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 import Overlay from 'ol/Overlay';
-import { toLonLat } from 'ol/proj';
-import { toStringHDMS } from 'ol/coordinate';
+// import { toLonLat } from 'ol/proj';
+// import { toStringHDMS } from 'ol/coordinate';
 import GeoJSON from 'ol/format/GeoJSON';
 import CONSTANTS from '../constants';
 
@@ -50,7 +50,8 @@ export default {
                             'coordinates': [-90.091533, 29.951065],
                         },
                         'properties': {
-                            'name': 'a store'
+                            'name': 'a store',
+                            'business_id': 'YNjyv0gfOr2g8lbmUpTnKg',
                         }
                     },
                 ]
@@ -151,10 +152,16 @@ export default {
                         return fromJsonFeatures.includes(feat);
                     })
                 ) {
+                    var name = ""
+                    var business_id = ""
+                    map.forEachFeatureAtPixel(evt.pixel, function (feat) {
+                        name = feat.get('name');
+                        business_id = feat.get('business_id');
+                    });
                     const coordinate = evt.coordinate;
-                    const hdms = toStringHDMS(toLonLat(coordinate));
+                    // const hdms = toStringHDMS(toLonLat(coordinate));
 
-                    content.innerHTML = '<p>You clicked here:</p><code>' + hdms + '</code>';
+                    content.innerHTML = '<p>You choosed: </p><a href=/review/' + business_id + '>' + name + '</a > ';
                     overlay.setPosition(coordinate);
                 }
             });
