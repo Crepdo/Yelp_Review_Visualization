@@ -4,8 +4,11 @@ import os
 import flask
 import arts_project.sample_data
 
+import arts_project.GetGeoJson
+
 PORT = os.environ.get("PORT", 3001)
 ENDPOINT_GRID = "/api/grid"
+ENDPOINT_GEO = "/api/geo"
 
 app = flask.Flask(__name__, static_folder="../build")
 
@@ -13,6 +16,12 @@ app = flask.Flask(__name__, static_folder="../build")
 @app.route(ENDPOINT_GRID)
 def get_grid():
     return flask.jsonify(arts_project.sample_data.sample_orders)
+
+@app.route(ENDPOINT_GEO)
+def get_geo():
+    geo_json = arts_project.GetGeoJson.get_geojson()
+    print(geo_json)
+    return flask.jsonify(geo_json)
 
 
 # Catching all routes

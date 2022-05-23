@@ -23,6 +23,7 @@ import Overlay from 'ol/Overlay';
 import { toLonLat } from 'ol/proj';
 import { toStringHDMS } from 'ol/coordinate';
 import GeoJSON from 'ol/format/GeoJSON';
+import CONSTANTS from '../constants';
 
 export default {
     name: "Map",
@@ -53,25 +54,50 @@ export default {
                         }
                     },
                 ]
-            }
+            },
+            WarningMessageOpen: false,
+            WarningMessageText: ""
         };
     },
 
+    created() {
+    },
+
     mounted() {
-        this.createMap();
+        this.fetch_geojson();
+        // this.createMap();
     },
 
     methods: {
+        fetch_geojson() {
+            fetch(CONSTANTS.ENDPOINT.GEO)
+                .then(response => {
+                    if (!response.ok) {
+                        throw Error(response.statusText);
+                    }
+                    return response.json();
+                })
+                .then(result => {
+                    this.geoJsonObj = result;
+                    this.createMap();
+                })
+                .catch(error => {
+                    this.WarningMessageOpen = true;
+                    this.WarningMessageText = `${CONSTANTS.ERROR_MESSAGE.GRID_GET} ${error}`;
+                });
+        },
         createMap() {
             const container = this.$refs.popup;
             const closer = this.$refs.popupcloser;
             const content = this.$refs.popupcontent;
+
             var overlay = new Overlay({
                 element: container,
                 autoPan: {
                     animation: { duration: 250 }
                 }
             });
+            // alert(this.geoJsonObj.features[1].geometry);
             closer.onclick = function () {
                 overlay.setPosition(undefined);
                 closer.blur();
@@ -89,10 +115,10 @@ export default {
             });
             var style = new Style({
                 image: new CircleStyle({
-                    radius: 10,
+                    radius: 7,
                     stroke: new Stroke({ //边界样式
                         color: '#319FD3',
-                        width: 5
+                        width: 3
                     }),
                     fill: new Fill({ //⽮量图层填充颜⾊，以及透明度
                         color: 'rgba(255, 0, 0, 0.6)'
@@ -125,7 +151,6 @@ export default {
                         return fromJsonFeatures.includes(feat);
                     })
                 ) {
-                    alert('click');
                     const coordinate = evt.coordinate;
                     const hdms = toStringHDMS(toLonLat(coordinate));
 
