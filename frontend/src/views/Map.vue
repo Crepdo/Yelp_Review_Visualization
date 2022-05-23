@@ -16,20 +16,46 @@ import TileLayer from "ol/layer/Tile";
 import OSM from "ol/source/OSM";
 import { fromLonLat } from "ol/proj";
 import "ol/ol.css";
-import Point from 'ol/geom/Point';
-import Feature from "ol/Feature";
 import { Vector as VectorLayer } from "ol/layer";
 import { Vector as VectorSource } from "ol/source";
 import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style';
 import Overlay from 'ol/Overlay';
 import { toLonLat } from 'ol/proj';
 import { toStringHDMS } from 'ol/coordinate';
+import GeoJSON from 'ol/format/GeoJSON';
 
 export default {
     name: "Map",
 
     components: {},
     props: {},
+
+    data() {
+        return {
+            geoJsonObj:
+            {
+                type: 'FeatureCollection',
+                crs: {
+                    'type': 'name',
+                    'properties': {
+                        'name': 'EPSG:3857',
+                    },
+                },
+                features: [
+                    {
+                        'type': 'Feature',
+                        'geometry': {
+                            'type': 'Point',
+                            'coordinates': [-90.091533, 29.951065],
+                        },
+                        'properties': {
+                            'name': 'a store'
+                        }
+                    },
+                ]
+            }
+        };
+    },
 
     mounted() {
         this.createMap();
@@ -61,17 +87,15 @@ export default {
                 }),
                 overlays: [overlay],
             });
-            var feature = new Feature({
-                geometry: new Point([-90.091533, 29.951065]).transform('EPSG:4326', "EPSG:3857"),
-                name: "A mark",
-                'size': 20,
-            });
             var style = new Style({
                 image: new CircleStyle({
                     radius: 10,
                     stroke: new Stroke({ //边界样式
                         color: '#319FD3',
                         width: 5
+                    }),
+                    fill: new Fill({ //⽮量图层填充颜⾊，以及透明度
+                        color: 'rgba(255, 0, 0, 0.6)'
                     }),
                 }),
                 fill: new Fill({ //⽮量图层填充颜⾊，以及透明度
@@ -82,18 +106,23 @@ export default {
                     width: 5
                 }),
             });
-            feature.setStyle([style]);
-            var v_source = new VectorSource({
-                features: [feature]
+            const styleFunction = function () {
+                return style;
+            };
+            var fromJsonFeatures = new GeoJSON({ featureProjection: 'EPSG:3857' }).readFeatures(this.geoJsonObj);
+
+            var vectorSource = new VectorSource({
+                features: fromJsonFeatures,
             });
             var vectorLayer = new VectorLayer({
-                source: v_source
+                source: vectorSource,
+                style: styleFunction,
             });
             map.addLayer(vectorLayer);
             map.on('click', function (evt) {
                 if (map.forEachFeatureAtPixel(evt.pixel,
                     function (feat) {
-                        return feat === feature;
+                        return fromJsonFeatures.includes(feat);
                     })
                 ) {
                     alert('click');
