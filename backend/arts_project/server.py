@@ -5,10 +5,13 @@ import flask
 import arts_project.sample_data
 
 import arts_project.GetGeoJson
+import arts_project.GetStarPerMonth
 
 PORT = os.environ.get("PORT", 3001)
 ENDPOINT_GRID = "/api/grid"
 ENDPOINT_GEO = "/api/geo"
+ENDPOINT_STAR = "/api/star"
+
 
 app = flask.Flask(__name__, static_folder="../build")
 
@@ -22,12 +25,21 @@ def get_geo():
     geo_json = arts_project.GetGeoJson.get_geojson()
     return flask.jsonify(geo_json)
 
+@app.route(ENDPOINT_STAR + '/<path:business_id>')
+def get_star(business_id):
+    j = arts_project.GetStarPerMonth.get_star_per_month_json(business_id)
+    print(j)
+    response = flask.jsonify(j)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
+
 
 # Catching all routes
 # This route is used to serve all the routes in the frontend application after deployment.
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def catch_all(path):
+    print("\n???\n")
     file_to_serve = "index.html"
     if path and os.path.exists(os.path.join(app.static_folder, path)):
         file_to_serve = path
