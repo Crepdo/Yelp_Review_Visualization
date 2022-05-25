@@ -12,6 +12,6 @@ export default new VueRouter({
     routes: [
         { path: "/", component: Grid },
         { path: "/map", component: Map },
-        { path: "/review/:id?", sensitive: false, component: Review },
+        { path: "/review/:id/:name", sensitive: false, component: Review },
     ]
 });

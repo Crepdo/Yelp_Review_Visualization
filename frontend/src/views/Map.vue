@@ -161,7 +161,7 @@ export default {
                     const coordinate = evt.coordinate;
                     // const hdms = toStringHDMS(toLonLat(coordinate));
 
-                    content.innerHTML = '<p>You choosed: </p><a href=/review/' + business_id + '>' + name + '</a > ';
+                    content.innerHTML = '<p>You choosed: </p><a href=/review/' + business_id + '/' + name + '>' + name + '</a > ';
                     overlay.setPosition(coordinate);
                 }
             });

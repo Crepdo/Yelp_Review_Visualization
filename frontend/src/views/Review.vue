@@ -1,8 +1,9 @@
 <template>
     <div>
         <a href="/map">Back</a>
+        <p> hi {{ $route.params.name }} </p>
         <p> hi {{ $route.params.id }} </p>
-        <div id="container" class="svg-container" align="center" style="width: 30%">
+        <div id="container" class="svg-container" style="width: 50%">
             <svg :width="svgWidth" :height="svgHeight">
                 <g ref="star_svg">
                 </g>
@@ -21,10 +22,17 @@ export default {
         },
         svgHeight() {
             return this.svgWidth / 1.61803398875;
+        },
+        gWidth() {
+            return this.svgWidth - this.svgMargin.left - this.svgMargin.right;
+        },
+        gHeight() {
+            return this.svgHeight - this.svgMargin.top - this.svgMargin.bottom;
         }
     },
     data: () => ({
         svgWidth: 0,
+        svgMargin: { top: 10, right: 30, bottom: 30, left: 60 }
     }),
     created() {
         this.$watch(
@@ -47,7 +55,10 @@ export default {
                 })
         },
         draw_star(star_data) {
-            var svg = d3.select(this.$refs.star_svg);
+            var svg = d3.select(this.$refs.star_svg)
+                .attr("transform",
+                    "translate(" + this.svgMargin.left + "," + this.svgMargin.top + ")")
+                ;
             console.log(star_data);
             for (var i = 0; i < star_data.length; i++) {
                 console.log(star_data[i]);
@@ -58,13 +69,13 @@ export default {
             console.log(d3.extent(star_data, d => d.month));
             const x = d3.scaleTime()
                 .domain(d3.extent(star_data, d => d3.timeParse("%Y-%m-%d")(d.month)))
-                .range([0, this.svgWidth]);
+                .range([0, this.gWidth]);
             svg.append("g")
-                .attr("transform", "translate(0," + this.svgHeight + ")")
+                .attr("transform", "translate(0," + this.gHeight + ")")
                 .call(d3.axisBottom(x));
             const y = d3.scaleLinear()
                 .domain([0, 5])
-                .range([this.svgHeight, 0]);
+                .range([this.gHeight, 0]);
             svg.append("g")
                 .call(d3.axisLeft(y));
             svg.append("path")
