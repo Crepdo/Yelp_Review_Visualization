@@ -4,30 +4,24 @@
     <p>hi {{ $route.params.name }}</p>
     <p>hi {{ $route.params.id }}</p>
     <div id="container" class="svg-container" style="width: 50%">
-      <svg :width="svgWidth" :height="svgHeight">
-        <g ref="star_svg"></g>
-      </svg>
+            <StarComponent
+                :business_id = "business_id"
+                :svgWidth = "svgWidth"
+            />
     </div>
   </div>
 </template>
 
 <script>
-import * as d3 from "d3";
-import * as d3fetch from "d3-fetch";
+import StarComponent from "@/components/StarComponent";
 export default {
   name: "Review",
+    components: {
+        StarComponent,
+    },
   computed: {
     business_id() {
       return this.$route.params.id;
-    },
-    svgHeight() {
-      return this.svgWidth / 1.61803398875;
-    },
-    gWidth() {
-      return this.svgWidth - this.svgMargin.left - this.svgMargin.right;
-    },
-    gHeight() {
-      return this.svgHeight - this.svgMargin.top - this.svgMargin.bottom;
     },
   },
   data: () => ({
@@ -39,59 +33,8 @@ export default {
   },
   mounted() {
     this.svgWidth = document.getElementById("container").offsetWidth * 0.75;
-    d3fetch.json("/api/star/" + this.$route.params.id).then((star_data) => {
-      this.draw_star(star_data);
-    });
   },
 
-  methods: {
-    draw_star(star_data) {
-      var svg = d3
-        .select(this.$refs.star_svg)
-        .attr(
-          "transform",
-          "translate(" + this.svgMargin.left + "," + this.svgMargin.top + ")"
-        );
-      console.log(star_data);
-      for (var i = 0; i < star_data.length; i++) {
-        console.log(star_data[i]);
-        console.log(star_data[i].month);
-        console.log(star_data[i].star);
-      }
-      console.log(d3.extent(star_data, (d) => d.month));
-      const x = d3
-        .scaleTime()
-        .domain(d3.extent(star_data, (d) => d3.timeParse("%Y-%m-%d")(d.month)))
-        .range([0, this.gWidth]);
-      svg
-        .append("g")
-        .attr("transform", "translate(0," + this.gHeight + ")")
-        .call(d3.axisBottom(x));
-      const y = d3.scaleLinear().domain([0, 5]).range([this.gHeight, 0]);
-      svg.append("g").call(d3.axisLeft(y));
-      svg
-        .append("path")
-        .datum(star_data)
-        .attr("fill", "none")
-        .attr("stroke", "#69b3a2")
-        .attr("stroke-width", 1.5)
-        .attr(
-          "d",
-          d3
-            .line()
-            .x((d) => x(d3.timeParse("%Y-%m-%d")(d.month)))
-            .y((d) => y(d.star))
-        );
-      svg
-        .append("g")
-        .selectAll("dot")
-        .data(star_data)
-        .join("circle")
-        .attr("cx", (d) => x(d3.timeParse("%Y-%m-%d")(d.month)))
-        .attr("cy", (d) => y(d.star))
-        .attr("r", 5)
-        .attr("fill", "#69b3a2");
-    },
-  },
+  methods: {}
 };
 </script>
