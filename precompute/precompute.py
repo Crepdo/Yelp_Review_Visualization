@@ -7,7 +7,7 @@ def get_star_per_month(business_id):
     :returns: Star of the shop every month as a list, the start month and the end month
     '''
     data = pd.read_csv("./data/new_orlean_restaurant_reviews.csv")
-
+    
     # The followings are examples, plz change their values and return
     stars = []
     start_year = 2000
