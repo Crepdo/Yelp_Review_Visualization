@@ -13,7 +13,11 @@
       "label": "Install dependencies backend",
       "type": "shell",
       "command": "pip",
-      "args": ["install", "-r", "backend/requirements.txt"]
+      "args": [
+        "install",
+        "-r",
+        "backend/requirements.txt"
+      ]
     },
     {
       "label": "Publish frontend",
@@ -25,7 +29,9 @@
       "label": "Publish backend",
       "type": "shell",
       "command": "python",
-      "args": ["backend/scripts/publish.py"]
+      "args": [
+        "backend/scripts/publish.py"
+      ]
     },
     {
       "label": "Start frontend",
@@ -44,7 +50,8 @@
       "dependsOn": [
         "Install dependencies frontend",
         "Install dependencies backend"
-      ]
+      ],
+      "problemMatcher": []
     },
     {
       "label": "Publish",

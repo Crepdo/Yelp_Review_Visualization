@@ -6,16 +6,18 @@ def get_star_per_month(business_id):
     :param business_id: The shop's id
     :returns: Star of the shop every month as a list, the start month and the end month
     '''
-    data = pd.read_csv("./data/new_orlean_restaurant_reviews.csv")
-    
-    # The followings are examples, plz change their values and return
-    stars = []
-    start_year = 2000
-    start_month = 12
-    end_year = 2000
-    end_month = 12
-    return (stars, start_year, start_month, end_year, end_month)
+    df = pd.read_csv("./new_orlean_restaurant_reviews.csv")
+    target_bus_df = df.loc[df['business_id'] == business_id]
+    # print("number of reviews: ",len(target_bus_df.index))
+    target_bus_df = target_bus_df.sort_values(by=['date'])
 
+    start_year = int(target_bus_df.iloc[0].at['date'][0:4])
+    end_year = int(target_bus_df.iloc[-1].at['date'][0:4])
+    start_month = int(target_bus_df.iloc[0].at['date'][5:7])
+    end_month = int(target_bus_df.iloc[-1].at['date'][5:7])
+    stars = []
+    for i in range(0,len(target_bus_df.index)):
+        stars.append(target_bus_df.iloc[i].at['stars'])
 
 # You can test your function here
 def main():
