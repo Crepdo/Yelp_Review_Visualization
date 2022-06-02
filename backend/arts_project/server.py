@@ -6,11 +6,13 @@ import arts_project.sample_data
 
 import arts_project.GetGeoJson
 import arts_project.GetStarPerMonth
+import arts_project.GetWordStreamJson
 
 PORT = os.environ.get("PORT", 3001)
 ENDPOINT_GRID = "/api/grid"
 ENDPOINT_GEO = "/api/geo"
 ENDPOINT_STAR = "/api/star"
+ENDPOINT_WORDS = "/api/words"
 
 
 app = flask.Flask(__name__, static_folder="../build")
@@ -32,6 +34,11 @@ def get_star(business_id):
     response = flask.jsonify(j)
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
+
+@app.route(ENDPOINT_WORDS + '/<path:business_id>')
+def get_words(business_id):
+    result = arts_project.GetWordStreamJson.get_words_stream_data(business_id)
+    return flask.jsonify(result)
 
 
 # Catching all routes
