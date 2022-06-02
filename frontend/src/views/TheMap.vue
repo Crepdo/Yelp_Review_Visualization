@@ -26,7 +26,7 @@ import GeoJSON from 'ol/format/GeoJSON';
 import CONSTANTS from '../constants';
 
 export default {
-    name: "Map",
+    name: "TheMap",
 
     components: {},
     props: {},
