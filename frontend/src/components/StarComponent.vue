@@ -46,13 +46,6 @@ export default {
                     "transform",
                     "translate(" + this.svgMargin.left + "," + this.svgMargin.top + ")"
                 );
-            console.log(star_data);
-            for (var i = 0; i < star_data.length; i++) {
-                console.log(star_data[i]);
-                console.log(star_data[i].month);
-                console.log(star_data[i].star);
-            }
-            console.log(d3.extent(star_data, (d) => d.month));
             const x = d3
                 .scaleTime()
                 .domain(d3.extent(star_data, (d) => d3.timeParse("%Y-%m-%d")(d.month)))
