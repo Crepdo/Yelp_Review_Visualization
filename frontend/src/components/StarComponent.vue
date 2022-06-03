@@ -67,14 +67,17 @@ export default {
             svg.append("g").call(d3.axisLeft(y));
             svg
                 .append("path")
+                
                 .datum(star_data)
                 .attr("fill", "none")
-                .attr("stroke", "#69b3a2")
+                // .attr("stroke", "#69b3a2")
+                .attr("stroke", "black")
                 .attr("stroke-width", 1.5)
                 .attr(
                     "d",
                     d3
                         .line()
+                        .curve(d3.curveBasis)
                         .x((d) => x(d3.timeParse("%Y-%m-%d")(d.month)))
                         .y((d) => y(d.star))
                 );
@@ -85,7 +88,7 @@ export default {
                 .join("circle")
                 .attr("cx", (d) => x(d3.timeParse("%Y-%m-%d")(d.month)))
                 .attr("cy", (d) => y(d.star))
-                .attr("r", 5)
+                .attr("r", 2)
                 .attr("fill", "#69b3a2");
         },
     },
