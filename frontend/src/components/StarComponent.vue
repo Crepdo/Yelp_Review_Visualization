@@ -46,13 +46,6 @@ export default {
                     "transform",
                     "translate(" + this.svgMargin.left + "," + this.svgMargin.top + ")"
                 );
-            console.log(star_data);
-            for (var i = 0; i < star_data.length; i++) {
-                console.log(star_data[i]);
-                console.log(star_data[i].month);
-                console.log(star_data[i].star);
-            }
-            console.log(d3.extent(star_data, (d) => d.month));
             const x = d3
                 .scaleTime()
                 .domain(d3.extent(star_data, (d) => d3.timeParse("%Y-%m-%d")(d.month)))
@@ -60,19 +53,31 @@ export default {
             svg
                 .append("g")
                 .attr("transform", "translate(0," + this.gHeight + ")")
-                .call(d3.axisBottom(x));
+                .call(d3.axisBottom(x))
+                .selectAll("text")
+                .style("text-anchor", "end")
+                .style("font-size", "75%")
+                .attr("dx", "-.8em")
+                .attr("dy", ".15em")
+                .attr("transform", function (d) {
+                    return "rotate(-45)";
+                })
+                ;
             const y = d3.scaleLinear().domain([0, 5]).range([this.gHeight, 0]);
             svg.append("g").call(d3.axisLeft(y));
             svg
                 .append("path")
+                
                 .datum(star_data)
                 .attr("fill", "none")
-                .attr("stroke", "#69b3a2")
+                // .attr("stroke", "#69b3a2")
+                .attr("stroke", "black")
                 .attr("stroke-width", 1.5)
                 .attr(
                     "d",
                     d3
                         .line()
+                        .curve(d3.curveBasis)
                         .x((d) => x(d3.timeParse("%Y-%m-%d")(d.month)))
                         .y((d) => y(d.star))
                 );
@@ -83,7 +88,7 @@ export default {
                 .join("circle")
                 .attr("cx", (d) => x(d3.timeParse("%Y-%m-%d")(d.month)))
                 .attr("cy", (d) => y(d.star))
-                .attr("r", 5)
+                .attr("r", 2)
                 .attr("fill", "#69b3a2");
         },
     },

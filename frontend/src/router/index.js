@@ -2,7 +2,7 @@
 import VueRouter from "vue-router";
 
 import Grid from "@/views/Grid.vue";
-import Map from "@/views/Map.vue";
+import TheMap from "@/views/TheMap.vue";
 import Review from "@/views/Review.vue";
 Vue.use(VueRouter);
 
@@ -11,7 +11,7 @@ export default new VueRouter({
     mode: "history",
     routes: [
         { path: "/", component: Grid },
-        { path: "/map", component: Map },
+        { path: "/map", component: TheMap },
         { path: "/review/:id/:name", sensitive: false, component: Review },
     ]
 });
