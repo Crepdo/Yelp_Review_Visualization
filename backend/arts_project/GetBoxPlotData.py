@@ -9,6 +9,10 @@ def get_review_content(review_id):
         "": ""
     }
 
-def get_positive_highest(review_id, time):
+def get_positive_highest(business_id, time):
+    review_id = 1
+    return get_review_content(review_id)
+
+def get_negative_highest(business_id, time):
     review_id = 1
     return get_review_content(review_id)
