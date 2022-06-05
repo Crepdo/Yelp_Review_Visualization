@@ -1,4 +1,4 @@
-﻿# Yifan Song's hw2
+﻿# ARTS Project
 If you use vscode, use Ctrl+Shift+P,
 task: run tasks > task: install dependencies > task: run task: start app
 

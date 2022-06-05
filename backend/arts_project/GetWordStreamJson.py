@@ -5,7 +5,7 @@ import random
 
 def get_words_stream_data(business_id):
 
-    person_phrase = "Change your life today Dont gamble on the future act now without delay"
+    person_phrase = "1 2 3 4 5 6 7 8 9"
     person_phrase = person_phrase.split()
     person_phrase = list(set(person_phrase))
 
