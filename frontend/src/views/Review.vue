@@ -6,6 +6,9 @@
         <div id="star_container" class="svg-container" style="width: 50%">
             <StarComponent :business_id="business_id" :svgWidth="svgWidth" />
         </div>
+        <div id="star_container" class="svg-container" style="width: 50%">
+            <BoxComponent :business_id="business_id" :svgWidth="svgWidth" />
+        </div>
         <div id="stream_container" class="svg-container" style="width: 100%">
             <WordstreamComponent :business_id="business_id" :svgWidth="streamWidth" />
         </div>
@@ -15,11 +18,13 @@
 <script>
 import StarComponent from "@/components/StarComponent";
 import WordstreamComponent from "@/components/WordstreamComponent";
+import BoxComponent from "@/components/BoxComponent";
 export default {
     name: "Review",
     components: {
         StarComponent,
         WordstreamComponent,
+        BoxComponent,
     },
     computed: {
         business_id() {

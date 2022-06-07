@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "d3-collection": "^1.0.7"
+  }
+}
