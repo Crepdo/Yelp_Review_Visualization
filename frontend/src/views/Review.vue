@@ -3,10 +3,10 @@
         <a href="/map">Back</a>
         <p>hi {{ $route.params.name }}</p>
         <p>hi {{ $route.params.id }}</p>
-        <div id="star_container" class="svg-container" style="width: 50%">
+        <div id="star_container" class="svg-container" style="width: 85%">
             <StarComponent :business_id="business_id" :svgWidth="svgWidth" />
         </div>
-        <div id="star_container" class="svg-container" style="width: 50%">
+        <div id="star_container" class="svg-container" style="width: 85%">
             <BoxComponent :business_id="business_id" :svgWidth="svgWidth" />
         </div>
         <div id="stream_container" class="svg-container" style="width: 100%">
@@ -40,7 +40,7 @@ export default {
         this.$watch(() => this.$route.params);
     },
     mounted() {
-        this.svgWidth = document.getElementById("star_container").offsetWidth * 0.75;
+        this.svgWidth = document.getElementById("star_container").offsetWidth * 0.95;
         this.streamWidth = document.getElementById("stream_container").offsetWidth * 0.95;
     },
 

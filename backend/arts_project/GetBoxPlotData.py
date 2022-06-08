@@ -22,9 +22,9 @@ class PlotData:
         temp_df = self.df[self.df["business_id"] == business_id]
         data = temp_df[temp_df["review_id"] == review_id]
         return {
-            "text": data["text"],
-            "useful": data["useful"],
-            "cool": data["cool"]
+            "text": data.iloc[0]["text"],
+            "useful": int(data.iloc[0]["useful"]),
+            "cool": int(data.iloc[0]["cool"])
         }
 
     def get_positive_highest(self, business_id, start_date, end_date):

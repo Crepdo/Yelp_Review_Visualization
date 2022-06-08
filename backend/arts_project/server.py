@@ -19,6 +19,7 @@ ENDPOINT_STAR = "/api/star"
 # API endpoint for word stream
 ENDPOINT_WORDS = "/api/words"
 ENDPOINT_REVIEW = "/api/review"
+ENDPOINT_THEREV = "/api/therev"
 ENDPOINT_HIGH = "/api/high"
 ENDPOINT_LOW = "/api/low"
 
@@ -57,6 +58,13 @@ def get_boxes(business_id):
     print(result)
     return flask.jsonify(result)
 
+@app.route(ENDPOINT_THEREV +  '/<path:business_id>'+'/<path:review_id>')
+def get_the_review(business_id, review_id):
+    if review_id == "default":
+        return ""
+    result = plot_data.get_review_content(business_id, review_id)
+    print(result)
+    return flask.jsonify(result)
 
 # Catching all routes
 # This route is used to serve all the routes in the frontend application after deployment.
