@@ -66,6 +66,16 @@ def get_the_review(business_id, review_id):
     print(result)
     return flask.jsonify(result)
 
+@app.route("/api/ind/star")
+def get_industry_stars():
+    stars = {}
+    return flask.jsonify(stars)
+
+@app.route("/api/ind/word")
+def get_industry_words():
+    words = {}
+    return flask.jsonify(words)
+
 # Catching all routes
 # This route is used to serve all the routes in the frontend application after deployment.
 

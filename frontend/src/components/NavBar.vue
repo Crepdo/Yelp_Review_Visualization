@@ -8,7 +8,11 @@
         <div class="navbar navbar-expand-sm navbar-light border-bottom justify-content-between">
             <a class="navbar-brand" href="/map" role="heading" aria-level="1">Map</a>
             <b-nav class="navbar-nav">
-                <b-nav-item class="nav-item nav-link active" to="/review/DcBLYSvOuWcNReolRVr12A/Drago's">Chosen store
+                <b-nav-item class="nav-item nav-link active" to="/review/DcBLYSvOuWcNReolRVr12A/Drago's">
+                    Chosen store
+                </b-nav-item>
+                <b-nav-item class="nav-item nav-link active" to="/ind">
+                    Industry page
                 </b-nav-item>
             </b-nav>
         </div>
