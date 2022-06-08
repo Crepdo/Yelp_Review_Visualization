@@ -1,13 +1,13 @@
 <template>
-    <div>
-        <svg :width="svgWidth" :height="svgHeight">
+    <div style="width: 100%">
+        <svg :width="svgWidth" :height="svgHeight" style="display:inline">
             <g ref="star_svg"></g>
         </svg>
-        <div>{{ reviewId }}
-            <p v-if="seen">{{ review_content }}</p>
-        </div>
-        <div>
-            <p>{{ high_positive_content }}</p>
+        <div style="display:inline width:10%">
+            <div style="display:inline">
+                The chosen review with review id: {{ reviewId }}
+                <p v-if="seen">{{ review_content }}</p>
+            </div>
         </div>
     </div>
 </template>
