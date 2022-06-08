@@ -75,6 +75,7 @@ export default {
                 });
         },
         draw_box(data) {
+            const BY_SEMESTER = 6;
             var svg = d3
                 .select(this.$refs.star_svg)
                 .attr(
@@ -82,7 +83,12 @@ export default {
                     "translate(" + this.svgMargin.left + "," + this.svgMargin.top + ")"
                 );
             var sumstat = nest() // nest function allows to group the calculation per level of a factor
-                .key(function (d) { return d.date; })
+                .key(function (d) {
+                    var new_date = d3.timeParse("%Y-%m-%d")(d.date)
+                    var new_month = Math.floor(new_date.getMonth() / BY_SEMESTER + 1) * 3;
+                    new_date.setMonth(new_month);
+                    return new_date.toISOString().split('T')[0];
+                })
                 .rollup(function (d) {
                     var q1 = d3.quantile(d.map(function (g) { return g.stars; }).sort(d3.ascending), .25)
                     var median = d3.quantile(d.map(function (g) { return g.stars; }).sort(d3.ascending), .5)
@@ -114,7 +120,7 @@ export default {
                 ;
             // Show the Y scale
             var y = d3.scaleLinear()
-                .domain([0, 6])
+                .domain([0, 7])
                 .range([this.gHeight, 0])
             svg.append("g").call(d3.axisLeft(y))
 
@@ -124,8 +130,22 @@ export default {
                 .data(sumstat)
                 .enter()
                 .append("line")
-                .attr("x1", function (d) { return (x(d3.timeParse("%Y-%m-%d")(d.key))) })
-                .attr("x2", function (d) { return (x(d3.timeParse("%Y-%m-%d")(d.key))) })
+                .attr("x1", function (d) {
+                    var new_date = d3.timeParse("%Y-%m-%d")(d.key)
+                    var new_month = Math.floor(new_date.getMonth() / BY_SEMESTER + 1) * 3;
+                    new_date.setMonth(new_month);
+                    var new_str = new_date.toISOString().split('T')[0];
+
+                    return (x(d3.timeParse("%Y-%m-%d")(new_str)))
+                })
+                .attr("x2", function (d) {
+                    var new_date = d3.timeParse("%Y-%m-%d")(d.key)
+                    var new_month = Math.floor(new_date.getMonth() / BY_SEMESTER + 1) * 3;
+                    new_date.setMonth(new_month);
+                    var new_str = new_date.toISOString().split('T')[0];
+
+                    return (x(d3.timeParse("%Y-%m-%d")(new_str)))
+                })
                 .attr("y1", function (d) { return (y(d.value.min)) })
                 .attr("y2", function (d) { return (y(d.value.max)) })
                 .attr("stroke", "black")
@@ -137,7 +157,14 @@ export default {
                 .data(sumstat)
                 .enter()
                 .append("rect")
-                .attr("x", function (d) { return (x(d3.timeParse("%Y-%m-%d")(d.key)) - boxWidth / 2) })
+                .attr("x", function (d) {
+                    var new_date = d3.timeParse("%Y-%m-%d")(d.key)
+                    var new_month = Math.floor(new_date.getMonth() / BY_SEMESTER + 1) * 3;
+                    new_date.setMonth(new_month);
+                    var new_str = new_date.toISOString().split('T')[0];
+
+                    return (x(d3.timeParse("%Y-%m-%d")(new_str)) - boxWidth / 2)
+                })
                 .attr("y", function (d) { return (y(d.value.q3)) })
                 .attr("height", function (d) { return (y(d.value.q1) - y(d.value.q3)) })
                 .attr("width", boxWidth)
@@ -150,10 +177,20 @@ export default {
                 .enter()
                 .append("line")
                 .attr("x1", function (d) {
-                    return (x(d3.timeParse("%Y-%m-%d")(d.key)) - boxWidth / 2)
+                    var new_date = d3.timeParse("%Y-%m-%d")(d.key)
+                    var new_month = Math.floor(new_date.getMonth() / BY_SEMESTER + 1) * 3;
+                    new_date.setMonth(new_month);
+                    var new_str = new_date.toISOString().split('T')[0];
+
+                    return (x(d3.timeParse("%Y-%m-%d")(new_str)) - boxWidth / 2)
                 })
                 .attr("x2", function (d) {
-                    return (x(d3.timeParse("%Y-%m-%d")(d.key)) + boxWidth / 2)
+                    var new_date = d3.timeParse("%Y-%m-%d")(d.key)
+                    var new_month = Math.floor(new_date.getMonth() / BY_SEMESTER + 1) * 3;
+                    new_date.setMonth(new_month);
+                    var new_str = new_date.toISOString().split('T')[0];
+
+                    return (x(d3.timeParse("%Y-%m-%d")(new_str)) + boxWidth / 2)
                 })
                 .attr("y1", function (d) { return (y(d.value.median)) })
                 .attr("y2", function (d) { return (y(d.value.median)) })
@@ -170,7 +207,12 @@ export default {
                 .enter()
                 .append("circle")
                 .attr("cx", function (d) {
-                    return (x(d3.timeParse("%Y-%m-%d")(d.date)) - jitterWidth / 2 + Math.random() * jitterWidth)
+                    var new_date = d3.timeParse("%Y-%m-%d")(d.date)
+                    var new_month = Math.floor(new_date.getMonth() / BY_SEMESTER + 1) * 3;
+                    new_date.setMonth(new_month);
+                    var new_str = new_date.toISOString().split('T')[0];
+
+                    return x(d3.timeParse("%Y-%m-%d")(new_str)) - jitterWidth / 2 + Math.random() * jitterWidth;
                 })
                 .attr("cy", function (d) {
                     return (y(d.stars))
