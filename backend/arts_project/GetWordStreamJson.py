@@ -2,16 +2,30 @@ import datetime
 from dateutil.relativedelta import relativedelta
 import random
 
-
 def get_words_stream_data(business_id):
+    person_phrase = [
+        "'oyster' 'fry' 'order' 'time' 'take' 'gumbo' 'good' 'cold' 'well' 'food'",
+        "'make' 'place' 'bread' 'definitely' 'food' 'drink" 'excellent' 'SSflavor', 
+        "'bread' 'try' 'lobster' 'shrimp' 'small' 'gumbo' 'good' 'flavor' 'well' 'chargrille'",
+        "'oyster' 'juicy' 'plenty' 'time' 'take' 'gumbo' 'menu' 'place' 'well' 'food'",
+        "'oyster' 'juicy' 'order' 'cream' 'take' 'gumbo' 'catfish' 'style' 'well' 'pasta'",
+        "'oyster' 'deep' 'dinner' 'ice' 'take' 'drink' 'drago' 'style' 'seafood' 'pasta'"
+    ]
+    for i in range(0,len(person_phrase)):
+        mid = person_phrase[i].split()
+        person_phrase[i] = list(set(mid))
 
-    person_phrase = "1 2 3 4 5 6 7 8 9"
-    person_phrase = person_phrase.split()
-    person_phrase = list(set(person_phrase))
-
-    env_phrase = "How to Randomly Select Element From List in Python"
-    env_phrase = env_phrase.split()
-    env_phrase = list(set(env_phrase))
+    env_phrase = [
+        "'service' 'park' 'cold' 'entree' 'gator' 'come' 'place' 'make' 'charbroile'",
+        "'service' 'park' 'gator' 'sirloin' 'plenty' 'card' 'place' 'make' 'park'",
+        "'service' 'mark' 'get' 'like' 'excellent' 'card' 'place' 'ring' 'charbroile'"
+        "'order' 'park' 'cold' 'entree' 'excellent' 'seat' 'order' 'make' 'charbroile'",
+        "'service' 'park' 'friend' 'like' 'bread' 'card' 'place' 'make' 'charbroile'",
+        "'service' 'mark' 'get' 'like' 'excellent' 'park' 'place' 'ring' 'meet'"
+    ]
+    for i in range(0,len(env_phrase)):
+        mid = env_phrase[i].split()
+        env_phrase[i] = list(set(mid))
 
     start_year = random.randint(2010, 2019)
     end_year = random.randint(start_year + 1, 2021)
@@ -31,26 +45,26 @@ def get_words_stream_data(business_id):
         cur_data["date"] =  str(cur_date.month) + " " + str(cur_date.year) 
         cur_data["words"] = {}
         cur_person_words = []
-        for word in person_phrase:
+        for word in person_phrase[random.randint(0, 4)]:
             cur_person_words.append({
                 "sudden": random.randint(3, 6),
                 "text": word,
                 "frequency": random.randint(2, 5),
-                "topic": "person",
+                "topic": "Food",
                 "id": word + "_id"
                 })
         cur_env_words = []
-        for word in env_phrase:
+        for word in env_phrase[random.randint(0, 4)]:
             cur_env_words.append({
                 "sudden": random.randint(3, 6),
                 "text": word,
-                "frequency": random.randint(2, 5),
-                "topic": "environment",
+                "frequency": random.randint(2, 4),
+                "topic": "Environment",
                 "id": word + "_id"
                 })
 
-        cur_data["words"]["person"] = cur_person_words
-        cur_data["words"]["environment"] = cur_env_words
+        cur_data["words"]["Food"] = cur_person_words
+        cur_data["words"]["Environment"] = cur_env_words
         result.append(cur_data)
 
         cur_date += relativedelta(months=1)
