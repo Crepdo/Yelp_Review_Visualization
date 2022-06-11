@@ -4,12 +4,12 @@ import random
 
 def get_words_stream_data(business_id):
     person_phrase = [
-        "'oyster' 'fry' 'order' 'time' 'take' 'gumbo' 'good' 'cold' 'well' 'food'",
-        "'make' 'place' 'bread' 'definitely' 'food' 'drink" 'excellent' 'SSflavor', 
+        "'oyster' 'chinese' 'order' 'time' 'take' 'gumbo' 'good' 'cold' 'well' 'food'",
+        "'make' 'place' 'bread' '' 'food' 'drink" 'excellent' 'SSflavor', 
         "'bread' 'try' 'lobster' 'shrimp' 'small' 'gumbo' 'good' 'flavor' 'well' 'chargrille'",
         "'oyster' 'juicy' 'plenty' 'time' 'take' 'gumbo' 'menu' 'place' 'well' 'food'",
         "'oyster' 'juicy' 'order' 'cream' 'take' 'gumbo' 'catfish' 'style' 'well' 'pasta'",
-        "'oyster' 'deep' 'dinner' 'ice' 'take' 'drink' 'drago' 'style' 'seafood' 'pasta'"
+        "'oyster' 'deep' 'dinner' 'type' 'take' 'drink' 'drago' 'style' 'seafood' 'pasta'"
     ]
     for i in range(0,len(person_phrase)):
         mid = person_phrase[i].split()

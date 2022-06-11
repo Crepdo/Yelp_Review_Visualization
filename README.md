@@ -1,4 +1,4 @@
-﻿# Yifan Song's ARTS-1422 project: Dara visualization
+# ARTS-1422 project: Data visualization
 This is a visualization of the yelp dataset which contains a map, a word stream plot, a scatter plot and a box plot.
 This project is done with Vue and D3js for the front end part and flask and pandas for the back end parts.
 We are rookies in html, css and more so the web page is ugly, sorry for that.
@@ -26,9 +26,15 @@ The index for the web page should be:
 http://localhost:3000/map
 
 ## Demo
-![Map](./demo/map.png)
-![Box](./demo/box.png)
-![Scatter](./demo/scatter.png)
-![Wordstream](./demo/fake_words.png)
-![Wordstream 2](./demo/fake_words_2.png)
+![image-20220612034932439](README.assets\image-20220612034932439.png)
+
+![image-20220612035856762](C:\Users\Cpdo\Desktop\ARTS-Porject\README.assets\image-20220612035856762.png)
+
+![image-20220612035952320](C:\Users\Cpdo\Desktop\ARTS-Porject\README.assets\image-20220612035952320.png)
+
+![image-20220612035036255](C:\Users\Cpdo\Desktop\ARTS-Porject\README.assets\image-20220612035036255.png)
+
+![wordstream](\README.assets\wordstream.gif)
+
+![image-20220612040056323](C:\Users\Cpdo\Desktop\ARTS-Porject\README.assets\image-20220612040056323.png)
 
