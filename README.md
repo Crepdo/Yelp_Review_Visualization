@@ -26,15 +26,5 @@ The index for the web page should be:
 http://localhost:3000/map
 
 ## Demo
-![image-20220612034932439](README.assets\image-20220612034932439.png)
 
-![image-20220612035856762](\README.assets\image-20220612035856762.png)
-
-![image-20220612035952320](C:\Users\Cpdo\Desktop\ARTS-Porject\README.assets\image-20220612035952320.png)
-
-![image-20220612035036255](README.assets\image-20220612035036255.png)
-
-![wordstream](README.assets\wordstream.gif)
-
-![image-20220612040056323](README.assets\image-20220612040056323.png)
-
+![image-20220612041239370](README.assets\image-20220612041239370.png)
