@@ -27,6 +27,4 @@ http://localhost:3000/map
 
 ## Demo
 
-![image-20220612041239370](README.assets\image-20220612041239370.png)
-
-![image-20220612041708142](C:\Users\Cpdo\Desktop\ARTS-Porject\README.assets\image-20220612041708142.png)
+see the folder ```\design_and_presentations``` for details.
