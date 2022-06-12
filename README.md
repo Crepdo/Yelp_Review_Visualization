@@ -1,16 +1,17 @@
 # ARTS-1422 project: Data visualization
-This is a visualization of the yelp dataset which contains a map, a word stream plot, a scatter plot and a box plot.
-This project is done with ```Vue``` and ```D3.js``` for the front end part and ```flask``` , ```pandas``` and ```gensim``` for the back end parts.
-We are rookies in html, css and more so the web page is ugly, sorry for that.
+This is a visualization of the [Yelp Dataset](https://www.yelp.com/dataset) which contains a map, a word stream plot, a scatter plot and a box plot.  
+This project is done with ```Vue``` and ```D3.js``` for the front end part and ```flask``` , ```pandas``` and ```gensim``` for the back end parts.  
+We are rookies in html, css and more and lack in time, so the web page is a bit ugly, sorry for that.
 
 ## Run instruction
 
-If you use vscode, use Ctrl+Shift+P,
-task: run tasks > task: install dependencies > task: run task: start app
+If you use vscode, use ```Ctrl+Shift+P```:   
+```task: run tasks > task: install dependencies > task: run task: start app```
 
-if not in vscode(recommended)
-run npm install in both front end and back end.
-Then run npm run start in both front end and back end.
+if not in vscode(recommended)   
+run npm install in both front end and back end.   
+Then run npm run start in both front end and back end. 
+
 ```ps1
 cd backend
 pip install flask pandas
