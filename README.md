@@ -1,6 +1,6 @@
 # ARTS-1422 project: Data visualization
 This is a visualization of the yelp dataset which contains a map, a word stream plot, a scatter plot and a box plot.
-This project is done with Vue and D3js for the front end part and flask and pandas for the back end parts.
+This project is done with ```Vue``` and ```D3.js``` for the front end part and ```flask``` , ```pandas``` and ```gensim``` for the back end parts.
 We are rookies in html, css and more so the web page is ugly, sorry for that.
 
 ## Run instruction
@@ -27,4 +27,16 @@ http://localhost:3000/map
 
 ## Demo
 
-see the folder ```\design_and_presentations``` for details.
+Check the folder ```\design_and_presentations``` for details.
+
+![image-20220613032345067](README.assets/image-20220613032345067.png)
+
+![image-20220613032523226](README.assets/image-20220613032523226.png)
+
+![image-20220613032424518](README.assets/image-20220613032424518.png)
+
+
+
+![image-20220613032616278](README.assets/image-20220613032616278.png)
+
+![image-20220613032318413](README.assets/image-20220613032318413.png)
